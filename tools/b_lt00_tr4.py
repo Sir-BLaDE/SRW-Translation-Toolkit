@@ -1,0 +1,76 @@
+# -*- coding: utf-8 -*-
+"""Traducciones de B_LT00, lote 4 (indices 403-464 del volcado unico)."""
+import json
+import os
+
+D = r"C:/Dev/Default Project/srwv/datos"
+
+T = {
+"Zambot Moon Attack will always be a critical hit": "El Ataque Lunar de Zambot siempre será un golpe crítico",
+"El CQB, RNG, SKL, DEF, EVD y HIT del piloto aumentan": "El CQB, RNG, SKL, DEF, EVD y HIT del piloto aumentan",
+"Increases Spider Web DMG by 300 and grants the": "Aumenta el DMG de Spider Web en 300 y otorga la",
+"special effect Ignore Size.": "cualidad especial Ignorar Tamaño.",
+"Increases all weapon DMG by 100 and makes it": "Aumenta el DMG de todas las armas en 100 y",
+"Increases Final Accuracy % by 10%. Increases": "Aumenta la puntería final un 10 %. Aumenta",
+"Increases Final Accuracy % by 10%. Funnels now": "Aumenta la puntería final un 10 %. Los Funnels ahora",
+"cost 10 less EN and do 200 more DMG.": "cuestan 10 menos de EN e infligen 200 más de DMG.",
+"Newtype Weapons gain DMG equal to the level of": "Las armas Newtype ganan DMG igual al nivel de",
+"Increases Beam Rifle DMG by 300.": "Aumenta el DMG del Beam Rifle en 300.",
+"Increases Mega Particle Cannon Volley DMG by 300.": "Aumenta el DMG de la descarga del Cañón de Megapartículas en 300.",
+"Increases Funnel Missile DMG by 200. Increases": "Aumenta el DMG del misil Funnel en 200. Aumenta",
+"Increases V.S.B.R. DMG by 300. Increases Range by 1": "Aumenta el DMG del V.S.B.R. en 300 y el alcance en 1",
+"Increases Max EN by 80. Special ability Shadow": "Aumenta la EN máxima en 80. La cualidad especial Shadow",
+"Increases map weapon Super DRAGOON Ammo by 1 and": "Aumenta en 1 la munición del arma de mapa Super DRAGOON y",
+"reduce en 10 el Enfoque requerido.": "reduce en 10 el Enfoque requerido.",
+"Increases Excalibur DMG by 200. Increases Range by 1.": "Aumenta el DMG de Excalibur en 200 y el alcance en 1.",
+"Decreases Max DMG taken by 30%.": "Reduce el DMG máximo recibido un 30 %.",
+"Increases Max EN by 100. Allies within 2 spaces are": "Aumenta la EN máxima en 100. Los aliados a 2 casillas",
+"Weapon and unit terrain handling become Spc-S and": "La adaptación al terreno del arma y la unidad pasa a Espacio-S y",
+"Increases Armed Armor DE DMG by 300 and Range by 1.": "Aumenta el DMG de Armed Armor DE en 300 y el alcance en 1.",
+"Increases Final Accuracy % by 20%. Increases": "Aumenta la puntería final un 20 %. Aumenta",
+"Increases ranged weapon DMG by 200.": "Aumenta el DMG de las armas a distancia en 200.",
+"Increases Mega Bazooka Launcher DMG by 300.": "Aumenta el DMG del Mega Bazooka Launcher en 300.",
+"Increases Tri-Star Formation DMG by 200 and": "Aumenta el DMG de Tri-Star Formation en 200 y",
+"Increases all weapon DMG by 200.": "Aumenta el DMG de todas las armas en 200.",
+"Increases Psycho Shard DMG by 300.": "Aumenta el DMG de Psycho Shard en 300.",
+"Increases Newtype Weapon DMG by 200 and CRT by 10.": "Aumenta el DMG de las armas Newtype en 200 y el CRT en 10.",
+"Grants special ability Repair Device. Increases": "Otorga la cualidad especial Dispositivo de Reparación. Aumenta",
+"Increases Max EN by 50 and Movement by 1.": "Aumenta la EN máxima en 50 y el Movimiento en 1.",
+"Increases Mighty Formation DMG by 200.": "Aumenta el DMG de Mighty Formation en 200.",
+"Increases Drive Wheel Sword weapons DMG by 200.": "Aumenta el DMG de las armas Drive Wheel Sword en 200.",
+"Increases Drill Crusher DMG by 200.": "Aumenta el DMG de Drill Crusher en 200.",
+"Increases HP by 1000, Armor by 300, and Sight": "Aumenta los PV en 1000, el blindaje en 300 y la",
+"Increases reach of special ability Repair Device": "Aumenta el alcance de la cualidad especial Dispositivo de Reparación",
+"Increases all weapon DMG by 200 and CRT by 30.": "Aumenta el DMG de todas las armas en 200 y el CRT en 30.",
+"Increases all CQB weapon DMG by 200 and CRT by 30.": "Aumenta el DMG de todas las armas CQB en 200 y el CRT en 30.",
+"Changes terrain handling of all weapons to S.": "Cambia la adaptación al terreno de todas las armas a S.",
+"Increases Armor by 300 and Max EN by 50.": "Aumenta el blindaje en 300 y la EN máxima en 50.",
+"Increases Kurogane Five Certain Death": "Aumenta el DMG del Ataque",
+"Attack DMG by 200 and Ammo by 4.": "Muerte Segura de Kurogane Five en 200 y la munición en 4.",
+"Changes to Final Accuracy/Evasion % are": "Los cambios en la puntería/evasión final se",
+"Increases all CQB weapon DMG by 200 and Mobility by 15.": "Aumenta el DMG de todas las armas CQB en 200 y la movilidad en 15.",
+"Increases Heat Hammer DMG by 300 and Range by 1.": "Aumenta el DMG de Heat Hammer en 300 y el alcance en 1.",
+"Increases all weapon DMG by 300. Increases Movement by 1.": "Aumenta el DMG de todas las armas en 300 y el Movimiento en 1.",
+"Increases Movement by 1, Max HP by 500, and": "Aumenta el Movimiento en 1, los PV máximos en 500 y",
+"Increases Ammo of all Ammo weapons by 50%.": "Aumenta un 50 % la munición de todas las armas con munición.",
+"Increases Sight by 30. Increases Range by 1 except": "Aumenta la visión en 30. Aumenta el alcance en 1 excepto",
+"Increases Spear DMG by 300 and reduces EN cost": "Aumenta el DMG de Spear en 300 y reduce el coste de EN",
+"Increases all weapon DMG by 300.": "Aumenta el DMG de todas las armas en 300.",
+"Unit and weapon terrain handling become Air-S and": "La adaptación al terreno de la unidad y el arma pasa a Aire-S y",
+"Increases ranged weapon DMG by 200. Increases Range": "Aumenta el DMG de las armas a distancia en 200. Aumenta el alcance",
+"Increases CQB weapon DMG by 200. Increases Movement by 1.": "Aumenta el DMG de las armas CQB en 200 y el Movimiento en 1.",
+"Increases Boomerang DMG by 300.": "Aumenta el DMG de Boomerang en 300.",
+"Increases Shoulder Twin Cannons DMG by 200.": "Aumenta el DMG de Shoulder Twin Cannons en 200.",
+"Increases HP by 300, Armor by 100, Sight by 5,": "Aumenta los PV en 300, el blindaje en 100, la visión en 5,",
+"Increases Sight and Mobility by 20.": "Aumenta la visión y la movilidad en 20.",
+"Increases Freeze Bullet DMG by 200 and Range by 1.": "Aumenta el DMG de Freeze Bullet en 200 y el alcance en 1.",
+"Space-time Convergence Cannon cuesta 30 menos de EN": "El Cañón de Convergencia Espaciotemporal cuesta 30 menos de EN",
+"Increases all weapon DMG by 300 and Mobility by 20.": "Aumenta el DMG de todas las armas en 300 y la movilidad en 20.",
+"Increases Mobility by 20 and Max EN by 100.": "Aumenta la movilidad en 20 y la EN máxima en 100.",
+"Increases Armor by 300 and Max EN by 100.": "Aumenta el blindaje en 300 y la EN máxima en 100.",
+}
+
+os.makedirs(D, exist_ok=True)
+with open(os.path.join(D, "b_lt00_rest_es_p4.json"), "w", encoding="utf-8") as fh:
+    json.dump(T, fh, ensure_ascii=False, indent=1)
+print("lote 4:", len(T))

@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+"""Formas cortas (se usan si la traduccion normal no cabe en el hueco del bloque)."""
+SH = {
+ 'Resolve':'Empeño','Drive':'Brío','Rouse':'Aviva','Mercy':'Piedad','Snipe':'Mira','Charge':'Carga','Haze':'Bruma','Agitate':'Agita',
+ 'Love':'Amor','Bravery':'Coraje','Fortune':'Suerte','Bless':'Gracia','Gain':'Gana','Cheer':'Ánimo','Analyze':'Analiza','Bonds':'Lazos',
+ 'Prospect':'Futuro','Foresee':'Visión','Wish':'Deseo','Resupply':'Repone','Attune':'Afina','Focus':'Foco','Strike':'Golpe','Alert':'Alerta',
+ 'Patient':'Calma','Guard':'Guardia','Accel':'Acelera','Valor':'Valor','Rage':'Ira','Fury':'Furia','Assail':'Asalta','Zeal':'Celo','Luck':'Suerte',
+ 'Charity':'Caridad','Spirit':'Alma','Trust':'Fe','Faith':'Fe','Renew':'Renueva','Vigor':'Vigor','Guts':'Agallas','Confuse':'Confunde','Scan':'Escanea',
+ 'Protagonist':'Protagonista','Main Character':'Pers. princ.',
+ 'End Phase':'Fin fase','Search':'Buscar','Units':'Unid.','Mission':'Misión','Report':'Informe','System':'Sistema','Save':'Guardar',
+ 'Squad List':'Escuadra','Operation Objective':'Objetivo','Tactical Report':'Inf. táctico','Midpoint Save':'Guard. interm.',
+ 'Move':'Mover','Attack':'Atacar','Spirits-Cmd':'Espíritus','Status':'Estado','Ground':'Tierra','Repair':'Reparar','Replenish':'Reabast.',
+ 'Transform':'Transf.','Combine':'Combinar','Parts':'Piezas','E-Change':'Cambio E','Tactics Conduct':'Táctica',
+ 'Strengthening human':'Humano mejor.','Cover attack':'Atq. cobertura','Support Attack':'Atq. apoyo','Cover defense':'Def. apoyo',
+ 'Underlying strength':'Fuerza latente','Fighting spirit':'Espíritu','Energy + (ATK':'Energía+(ATQ','Energy + (DFS':'Energía+(DEF',
+ 'Energy Rebirth':'Energía renace','Full counter':'Contra total','Spirit tolerance':'Toler. alma','Hit and Away':'Golpea y huye',
+ 'Parts supply':'Sumin. piezas','Repair skills':'Hab. reparar','Replenishment skills':'Hab. reabast.','Tactics wait':'Espera táctica',
+ 'Rebellious heart':'Corazón rebelde','Electronic fairy':'Hada electr.','Synchro rate':'Tasa sincro',
+ 'Barrier system':'Barrera','Psycho field':'Campo psíquico','GN Sword bit':'Bits Espada GN','GN holster bit':'Bits Pistolera GN',
+ 'Wave barrier':'Barrera ondas','Distortion Field':'Campo distors.','Deformation':'Transform.','Single separation':'Separación',
+ 'Special avoidance system':'Evasión especial','Repair equipment':'Equipo repar.','Supply device':'Equipo sumin.','Shield equipment':'Equipo escudo',
+ 'Jamming function':'Interferencia','Versus spirit attack':'Anti-espíritu','Ataque esp. rival':'Anti-espíritu','Fairy eyes':'Ojos hada',
+ 'Precision Aim LensW':'Lente puntería','Large Generator':'Generador grande','Magnet Coating':'Recub. magnét.','Chobham Armor':'Blindaje Chobham',
+ ' RANK':' RNG',
+}

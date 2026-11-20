@@ -1,0 +1,53 @@
+param([int]$Seconds = 120, [int]$Interval = 3, [string]$Tag = 'intro')
+Add-Type -AssemblyName System.Drawing, System.Windows.Forms
+$game = 'D:/Juegos/-SPARROW-/Super Robot Wars V'
+$out = "C:/Dev/Default Project/srwv/tools/_intro_$Tag"
+New-Item -ItemType Directory -Force -Path $out | Out-Null
+Get-ChildItem $out -Filter *.png | Remove-Item -Force -ErrorAction SilentlyContinue
+
+Stop-Process -Name SRWV -Force -ErrorAction SilentlyContinue
+Start-Sleep -Seconds 2
+Start-Process -FilePath (Join-Path $game 'SRWV.EXE') -WorkingDirectory $game | Out-Null
+
+Add-Type @'
+using System;
+using System.Runtime.InteropServices;
+public class Keys2 {
+  [DllImport("user32.dll")] public static extern void keybd_event(byte vk, byte scan, uint flags, UIntPtr extra);
+  [DllImport("user32.dll")] public static extern bool SetForegroundWindow(IntPtr h);
+  public static void Tap(byte vk){ keybd_event(vk,0,0,UIntPtr.Zero); System.Threading.Thread.Sleep(60); keybd_event(vk,0,2,UIntPtr.Zero); }
+}
+'@
+
+function Get-GameWindow {
+  $ps = Get-Process -Name SRWV -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowTitle -ne '' }
+  if ($ps) { return $ps | Select-Object -First 1 }
+  return $null
+}
+
+# esperar ventana
+$deadline=(Get-Date).AddSeconds(30)
+$w=$null
+while((Get-Date) -lt $deadline){ $w=Get-GameWindow; if($w){break}; Start-Sleep -Milliseconds 500 }
+if(-not $w){ Write-Output 'NO aparecio ventana'; exit 1 }
+Write-Output ("ventana: titulo='{0}' pid={1}" -f $w.MainWindowTitle,$w.Id)
+[Keys2]::SetForegroundWindow($w.MainWindowHandle) | Out-Null
+Start-Sleep -Milliseconds 500
+[Keys2]::Tap(0x0D)
+Write-Output 'Enter enviado'
+
+$t=0
+while($t -lt $Seconds){
+  Start-Sleep -Seconds $Interval
+  $t+=$Interval
+  $w=Get-GameWindow
+  if(-not $w){ Write-Output ("t={0}s sin ventana" -f $t); continue }
+  $bounds=[System.Windows.Forms.Screen]::PrimaryScreen.Bounds
+  $bmp=New-Object System.Drawing.Bitmap $bounds.Width,$bounds.Height
+  $g=[System.Drawing.Graphics]::FromImage($bmp)
+  $g.CopyFromScreen($bounds.Location,[System.Drawing.Point]::Empty,$bounds.Size)
+  $bmp.Save((Join-Path $out ("f{0:d3}.png" -f $t)))
+  $g.Dispose(); $bmp.Dispose()
+  Write-Output ("t={0,3}s titulo='{1}' -> f{0:d3}.png" -f $t,$w.MainWindowTitle)
+}
+Stop-Process -Name SRWV -Force -ErrorAction SilentlyContinue
