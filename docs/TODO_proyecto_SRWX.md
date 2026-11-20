@@ -25,6 +25,13 @@ Partida nueva -> ruta masculina (Iori) -> escenario 1: comprobar arranque, acent
 (Dr. Infierno, Bestias Mecánicas, Cuerpo Express Valiente). Si los acentos fallan: instalar `STGEST002_EN_es_piloto_ascii.cpk`.
 Si no arranca: restaurar los dos ficheros desde backup_original.
 
+## Progreso historia (STGEST002)
+- 2026-11-20: 5.576 / 47.268 líneas (11,8 %), entradas 2-87: escenarios 1-9 aprox., ambas rutas (Iori/Amari). Instalado.
+- Glosario fijado: Guardianes del Orden, Autobrujo, Dogma, Od, forastero (Otherworlder), Tierra del Maná / Tierra de las Bestias,
+  hombres bestia, Norma, Para-Mail, Dragones, Piedra Azul (Nadia), Neo Atlántida, la Superficie (Dunbine), Ejército de la Capital,
+  Amería, Siglo Reguild, Alianza del Pacto Libre, Gran República de Zogilia, acoplamiento (Valiancer), Gólems Rúnicos, X-Cross ($c).
+- Spero llama «amo»/«ama» según la ruta; en líneas compartidas (ruta N) se evita el género.
+
 ## Siguiente
 - [x] Piloto probado: arranca (2026-11-20).
 - [ ] Traducir el resto de STGEST por lotes de 200 líneas (`datos/es_batches/bNNN_inicio_fin.json`, formato de ES_GUIDE).

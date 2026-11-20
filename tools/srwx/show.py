@@ -6,7 +6,7 @@ for fn in os.listdir('datos/es_batches'):
 tm={}
 for k,v in tr.items(): tm.setdefault((recs[k]['text'],recs[k]['speaker'].startswith('$n')),v)
 import re
-GEN=re.compile(r'(list|segur|sol[oa]\\b|cansad|content|preocupad|sorprendid|encantad|obligad|hechicer|\\bmag[oa]\\b|equivocad|dispuest|convencid|hart[oa]|nervios|tranquil|preparad|decidid|nuev[oa]\\b|amo\\b|ama\\b|señor|chic[oa]\\b|mism[oa]|\\bun[oa]\\b)',re.I)
+GEN=re.compile(r'(list|segur|sol[oa]\b|cansad|content|preocupad|sorprendid|encantad|obligad|hechicer|\bmag[oa]\b|equivocad|dispuest|convencid|hart[oa]|nervios|tranquil|preparad|decidid|nuev[oa]\b|amo\b|ama\b|señor|chic[oa]\b|mism[oa]|\bun[oa]?\b|desertor|\bél\b|\bell[oa]\b|o\b(?=[ ,.!?]))',re.I)
 a,b=int(sys.argv[1]),int(sys.argv[2]); auto={}; seen=set()
 for i in range(a,b+1):
     d=recs[i]

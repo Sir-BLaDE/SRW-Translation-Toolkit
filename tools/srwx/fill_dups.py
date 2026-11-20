@@ -1,5 +1,5 @@
 import json,sys,re
-GEN=re.compile(r'(list[oa]|segur[oa]\b|sol[oa]\b|cansad|content|preocupad|sorprendid|encantad|obligad|hechicer|\bmag[oa]\b|equivocad|dispuest|convencid|hart[oa]|nervios|tranquil|preparad|decidid|\bamo\b|\bama\b|señor|chic[oa]\b|mism[oa]|\bun[oa]\b|[^\s]+d[oa]\b)',re.I)
+GEN=re.compile(r'(list[oa]|segur[oa]\b|sol[oa]\b|cansad|content|preocupad|sorprendid|encantad|obligad|hechicer|\bmag[oa]\b|equivocad|dispuest|convencid|hart[oa]|nervios|tranquil|preparad|decidid|\bamo\b|\bama\b|señor|chic[oa]\b|mism[oa]|\bun[oa]?\b|desertor|\bél\b|[^\s]+d[oa]\b)',re.I)
 def fill(T,a,b):
     recs=[json.loads(l) for l in open('/home/claude/srwx/datos/story_dialogues.jsonl',encoding='utf-8')]
     by={}
