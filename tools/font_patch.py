@@ -22,9 +22,9 @@ from PIL import Image, ImageDraw
 from cpk_util import load
 from srwv_cpkbuild2 import build_ordered
 
-GAME = 'D:/Juegos/-SPARROW-/Super Robot Wars V/Data/AIDDATA/EN/FontInfo.cpk'
-OUT = 'C:/Dev/Default Project/srwv/outputs/FontInfo_es.cpk'
-PREV = 'C:/Dev/Default Project/srwv/tools/_font_render'
+GAME = os.environ.get('SRW_FONT_IN', 'D:/Juegos/-SPARROW-/Super Robot Wars V/Data/AIDDATA/EN/FontInfo.cpk')
+OUT = os.environ.get('SRW_FONT_OUT', 'C:/Dev/Default Project/srwv/outputs/FontInfo_es.cpk')
+PREV = os.environ.get('SRW_FONT_PREV', 'C:/Dev/Default Project/srwv/tools/_font_render')
 W = 4096
 HDR = 40
 BASELINE = 32
@@ -57,6 +57,14 @@ NEW = [0xE1, 0xED, 0xFA, 0xF1, 0xC1, 0xD3, 0xDA]      # á í ú ñ Á Ó Ú
 # ó ya tiene registro pero no estaba en el mapa, asi que es una sustitucion extra.
 MAP_REMOVE = REUSE + [0xFF]                            # ... + ÿ
 MAP_ADD = NEW + [0xF3]                                 # ... + ó
+
+if os.environ.get('SRW_GAME', 'V').upper() == 'X':
+    # SRW X: é É ü ¡ ¿ tienen registro (relleno) y estan en el mapa; faltan 10.
+    GLYPHS = GLYPHS + [('\u00cd', 'I', 'acc_u'), ('\u00d1', 'N', 'tilde_u')]
+    NEW = [0xE1, 0xED, 0xF3, 0xFA, 0xF1, 0xC1, 0xCD, 0xD3, 0xDA, 0xD1]  # á í ó ú ñ Á Í Ó Ú Ñ
+    REUSE = [0xE0, 0xE8, 0xF9, 0xE2, 0xEA, 0xEB, 0xEF, 0xEE, 0xF4, 0xFB]  # à è ù â ê ë ï î ô û
+    MAP_REMOVE = REUSE
+    MAP_ADD = NEW
 
 
 class Font:
@@ -145,10 +153,11 @@ def draw_acute(d, cx, top, bottom, thick=3, slope=0.6):
         d.rectangle([x0, r, x0 + thick - 1, r], fill=255)
 
 
-def draw_tilde(d, cx, top, width=12, amp=2.0, thick=2):
+def draw_tilde(d, cx, top, width=14, amp=2.0, thick=3):
+    # onda completa (~): sube a la izquierda y baja a la derecha
     for i in range(width):
         t = i / float(width - 1)
-        yc = top + amp + amp * math.sin(2 * math.pi * t - math.pi / 2)
+        yc = top + amp - amp * math.sin(2 * math.pi * t)
         y0 = int(round(yc))
         d.rectangle([int(cx - width / 2) + i, y0, int(cx - width / 2) + i, y0 + thick - 1], fill=255)
 
@@ -185,7 +194,7 @@ def compose(font, base_ch, kind):
             draw_dia(d, cx, 3)
         return img
 
-    if kind in ('acc_u', 'dia_u'):
+    if kind in ('acc_u', 'dia_u', 'tilde_u'):
         hgt = BASELINE - CAPTOP + 1          # 29
         newh = 24
         crop = base.crop((0, CAPTOP, base.width, BASELINE + 1))
@@ -199,6 +208,8 @@ def compose(font, base_ch, kind):
         d = ImageDraw.Draw(img)
         if kind == 'acc_u':
             draw_acute(d, cx, 0, 6, thick=3, slope=0.55)
+        elif kind == 'tilde_u':
+            draw_tilde(d, cx, 1)
         else:
             draw_dia(d, cx, 0, size=3, gap=3)
         return img
@@ -288,7 +299,7 @@ def main():
     for ch, base, kind in GLYPHS:
         g, _ = targets[ch]
         tiles.append(font.get(g).resize((40 * 4, 44 * 4), Image.NEAREST))
-    sheet = Image.new('L', (7 * 168, 2 * 184), 24)
+    sheet = Image.new('L', (7 * 168, ((len(tiles) + 6) // 7) * 184), 24)
     for i, t in enumerate(tiles):
         sheet.paste(t, ((i % 7) * 168, (i // 7) * 184))
     sheet.save(PREV + '/nuevos_glifos.png')

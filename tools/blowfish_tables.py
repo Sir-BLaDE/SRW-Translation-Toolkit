@@ -7,7 +7,8 @@ offset 0x42BBD0 y las 18 constantes iniciales del P-array en 0x121972.
 """
 import struct
 
-EXE = r"D:\Juegos\-SPARROW-\Super Robot Wars V\SRWV.EXE"
+import os
+EXE = os.environ.get("SRW_EXE", r"D:\Juegos\-SPARROW-\Super Robot Wars V\SRWV.EXE")
 # El init del juego copia 0x1000 bytes a ctx+0x48 desde esta tabla
 # (VA 0x14042CFD0 -> offset 0x42BBD0)
 SBOX_OFF = 0x42BBD0
@@ -22,6 +23,10 @@ P17 = 0x8979FB1B
 
 def load():
     data = open(EXE, "rb").read()
+    global SBOX_OFF
+    if struct.unpack_from("<I", data, SBOX_OFF)[0] != S0_CHECK:
+        # otro EXE (p. ej. SRWX.EXE): localizar la S-box por su primer valor
+        SBOX_OFF = data.find(struct.pack("<I", S0_CHECK))
     pinit = list(struct.unpack_from("<18I", data, PINIT_OFF))
     raw = struct.unpack_from("<1024I", data, SBOX_OFF)
     sboxes = [list(raw[i * 256:(i + 1) * 256]) for i in range(4)]

@@ -20,6 +20,10 @@ import struct
 KEY_SRWV = b"SRVW Steam Game"
 KEY_SRVX = b"SRVX Steam Game"
 
+import os as _os
+# SRW_GAME=X para Super Robot Wars X; por defecto V
+DEFAULT_KEY = KEY_SRVX if _os.environ.get("SRW_GAME", "V").upper() == "X" else KEY_SRWV
+
 MASK = 0xFFFFFFFF
 
 
@@ -129,7 +133,8 @@ class BlowfishCtx:
 _ctx_cache = {}
 
 
-def get_ctx(key=KEY_SRWV):
+def get_ctx(key=None):
+    key = key or DEFAULT_KEY
     if key not in _ctx_cache:
         ctx = BlowfishCtx()
         ctx.set_key(key)
@@ -137,11 +142,11 @@ def get_ctx(key=KEY_SRWV):
     return _ctx_cache[key]
 
 
-def decrypt_data(data, key=KEY_SRWV):
+def decrypt_data(data, key=None):
     return get_ctx(key).decrypt(data)
 
 
-def encrypt_data(data, key=KEY_SRWV):
+def encrypt_data(data, key=None):
     return get_ctx(key).encrypt(data)
 
 
