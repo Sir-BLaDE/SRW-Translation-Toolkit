@@ -14,7 +14,7 @@ def run():
     for fn in sorted(os.listdir('datos/es_batches')):
         p='datos/es_batches/'+fn; e=json.load(open(p,encoding='utf-8')); ch=0
         for k,v in e.items():
-            if any(vis(l.lstrip('　'))>50 for l in v.split('\r\n')):
+            if '」' not in v and any(vis(l.lstrip('　'))>50 for l in v.split('\r\n')):
                 e[k]=wrap(v); ch+=1
         if ch: json.dump(e,open(p,'w',encoding='utf-8'),ensure_ascii=False,indent=0); print(fn,'rewrap',ch)
 if __name__=='__main__': run()

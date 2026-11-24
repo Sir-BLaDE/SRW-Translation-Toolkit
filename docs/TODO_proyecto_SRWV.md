@@ -194,3 +194,8 @@ Lección: las filas de SysText deben guardarse cifradas+CRILAYLA (cf.cipher), nu
 - STGEST gen2 instalado: concordancia de género del protagonista (pid_FHERO fem / MHERO masc) y personajes femeninos en 1ª persona. tools/genero_personajes.py. DLC es3 con Capitana Katsuragi/Hoshino.
 - STGEST gen4 instalado: género dirigido al protagonista por ramas MHERO/FHERO (tools/genero_dirigido*.py) + Chitose/Misaki etc. Backups: STGEST_EN_instalado_antes_dirigido/genero
 - Mobile Suit fix instalado (traje móvil→Mobile Suit; robot en frases de máquina). Backup backup/pre_mobilesuit. SysText/rpw_jstr títulos 'Traje móvil Gundam…' sin cambiar (sin holgura).
+
+## 2026-11-24 Causa real de "KPACK RG / LN fila 4 no arrancan" (descubierta en SRW X)
+- El EXE tiene, por idioma, una tabla `{nombre_cpk, (fila, tamaño_descomprimido)[]}`; al cargar cada recurso reserva y copia EXACTAMENTE ese tamaño. Una fila traducida más larga se trunca y el resto se lee de memoria basura: el crash depende de la disposición de la memoria, por eso parecía culpa de RG (en X el truncado era LN fila 3).
+- En X: crash en SRWX.EXE+0x260c1b. Arreglado con `tools/exe_kpack_patch.py` (EXE parcheado + LN completo con fila 4 + RG completo: ARRANCA).
+- Para SRW V: `python tools/exe_kpack_patch.py SRWV.EXE SRWV_es.EXE <LN_EN original> <LN_EN traducido> <RG_EN original> <RG_EN traducido>` (los nombres del CPK original deben ser los del juego, p. ej. KPACK_P4_LN_EN.CPK). Si dice "no encuentro la tabla", la estructura de V difiere: analizar un volcado .dmp. Con esto se pueden reinstalar RG es1 y la fila 4 sin recortes. Ojo: el SRWV.EXE ya va parcheado (fuente), partir de ese EXE.

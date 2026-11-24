@@ -215,9 +215,12 @@ def compose(font, base_ch, kind):
         return img
 
     if kind == 'invl':
-        flipped = base.transpose(Image.FLIP_TOP_BOTTOM)
+        # girar 180 grados (no solo voltear) y recolocar la tinta donde estaba la del original
+        bb = font.ink_bbox(base)
+        rot = base.transpose(Image.ROTATE_180)
+        rb = font.ink_bbox(rot)
         out = Image.new('L', base.size, 0)
-        out.paste(flipped.crop((0, 7, base.width, base.height)), (0, 0))
+        out.paste(rot.crop((rb[0], rb[1], rb[2] + 1, rb[3] + 1)), (bb[0], bb[1]))
         return out
 
     raise ValueError(kind)
@@ -267,6 +270,10 @@ def main():
         font.put(g, img)
         uid, fl = font.rec(g)
         fl[7] = float(bb[2] + 1)          # ancho de tinta
+        # metricas horizontales (fl[4]=avance izq., fl[5]=avance total) de la letra base;
+        # los registros de relleno traen 7/20 y descolocan el glifo
+        _, bfl = font.rec(font.rec_of(base))
+        fl[4], fl[5] = bfl[4], bfl[5]
         font.write_rec(g, ord(ch), fl)
         print('  %r U+%04X g=%4d base=%r tipo=%-7s ink=%s ancho=%.0f'
               % (ch, ord(ch), g, base, kind, bb, fl[7]))

@@ -37,3 +37,8 @@ Si no arranca: restaurar los dos ficheros desde backup_original.
 - [ ] Traducir el resto de STGEST por lotes de 200 líneas (`datos/es_batches/bNNN_inicio_fin.json`, formato de ES_GUIDE).
 - [ ] CMN00 (combate), SysText, LT00, LayoutData, Prologue, rpw_jstr, KPACK, DLC, biblioteca.
 - [ ] Glosario de series nuevas de X (Wataru, Nadia, Cross Ange, Code Geass, Gurren Lagann, Majestic Prince, G-Reco, Valvrave...).
+
+## 2026-11-24
+- Causa de los no-arranques con KPACK: tabla de tamaños en el EXE (ver README / tools/exe_kpack_patch.py). Instalado SRWX.EXE parcheado + KPACK LN completo (fila 4 incluida) + KPACK RG completo. ARRANCA.
+- Fuente: font_patch.py copia las métricas horizontales (fl[4] avance izq., fl[5] avance) de la letra base; ¿ ¡ girados 180°.
+- tools/bltu.py: reconstrucción BLTU exacta (la de lt00.build alinea a 16 y guarda h7 absoluto).
