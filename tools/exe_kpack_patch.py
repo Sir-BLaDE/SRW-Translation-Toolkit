@@ -92,13 +92,17 @@ def patch(exe_in, exe_out, pairs):
         for rva, row, size in find_table(pe, img, name):
             if row < 0:
                 continue
-            if o.get(row) != size:
+            # SRW V: el EXE puede llevar un tamano algo MENOR que el de la fila del CPK
+            # original (relleno final que el juego no usa). Se conserva esa holgura.
+            delta = o.get(row, -1) - size
+            if not 0 <= delta < 1024:
                 raise SystemExit('%s fila %d: el EXE dice %d y el CPK original %s; '
                                  '¿EXE o CPK que no son los originales?' % (name, row, size, o.get(row)))
-            if n[row] != size:
+            want = n[row] - delta
+            if want != size:
                 off = pe.get_offset_from_rva(rva + 4)
-                struct.pack_into('<i', data, off, n[row])
-                log.append('%s fila %d: %d -> %d (offset 0x%X)' % (name, row, size, n[row], off))
+                struct.pack_into('<i', data, off, want)
+                log.append('%s fila %d: %d -> %d (offset 0x%X, holgura %d)' % (name, row, size, want, off, delta))
     open(exe_out, 'wb').write(data)
     return log
 
